@@ -112,7 +112,7 @@ export function UserForm({ signup, onSubmit }) {
             </div>
           )}
           <button
-            className="btn btn-primary mt-3 mb-2"
+            className={`btn btn-primary mt-3 mb-2 rounded-pill ${style.button}`}
             onClick={(e) => {
               e.preventDefault();
               onSubmit(formValues);
