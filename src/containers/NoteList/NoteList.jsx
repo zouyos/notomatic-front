@@ -23,7 +23,7 @@ export function NoteList({ noteList }) {
           <div className={style.card_container} key={note.id}>
             <TextCard
               title={note.title}
-              subtitle={note.created_at}
+              subtitle={note.modified_at ? note.modified_at : note.created_at}
               content={note.content}
               onCardClick={() => navigate(`/note/${note.id}`)}
               onTrashClick={() => removeNote(note.id)}
