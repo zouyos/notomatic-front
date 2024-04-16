@@ -36,11 +36,6 @@ export function NoteForm({
     content: note?.content ? undefined : "",
   });
 
-  function updateFormValues(e) {
-    setFormValues({ ...formValues, [e.target.name]: e.target.value });
-    validate(e.target.name, e.target.value);
-  }
-
   function validate(fieldName, fieldValue) {
     setFormErrors({
       ...formErrors,
@@ -48,12 +43,17 @@ export function NoteForm({
     });
   }
 
+  function updateFormValues(e) {
+    setFormValues({ ...formValues, [e.target.name]: e.target.value });
+    validate(e.target.name, e.target.value);
+  }
+
   function hasErrors() {
     return Object.values(formErrors).some((error) => error !== undefined);
   }
 
   const titleInput = (
-    <div className="mb-5">
+    <div className="mb-4">
       <label className="form-label">Title</label>
       <input
         type="text"
@@ -67,7 +67,7 @@ export function NoteForm({
   );
 
   const contentInput = (
-    <div className="mb-5">
+    <div className="mb-4">
       <label className="form-label">Content</label>
       <textarea
         type="text"
