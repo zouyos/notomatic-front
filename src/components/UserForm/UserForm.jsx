@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { FieldError } from "components/FieldError/FieldError";
 import { EnvelopeAt, ShieldLock } from "react-bootstrap-icons";
 
-export function UserForm({ signup, onSubmit }) {
+export function UserForm({ signup, onSubmit, errMsg }) {
   const VALIDATORS = {
     email: (value) => {
       return (
@@ -122,6 +122,7 @@ export function UserForm({ signup, onSubmit }) {
             Submit
           </button>
         </form>
+        <FieldError msg={errMsg} />
       </div>
     </div>
   );

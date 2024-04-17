@@ -25,6 +25,7 @@ export function Note() {
       ...formValues,
       id: note.id,
       modified_at: new Date().toLocaleDateString(),
+      created_at: note.created_at,
     });
     dispatch(updateNote(updatedNote));
     setIsEditable(false);
