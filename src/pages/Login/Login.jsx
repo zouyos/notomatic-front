@@ -18,7 +18,7 @@ export function Login() {
       dispatch(setLoggedIn(true));
       navigate("/");
     } catch (err) {
-      setError(err.response.data.message);
+      setError(err.response.data.message || err.message);
     }
   }
 

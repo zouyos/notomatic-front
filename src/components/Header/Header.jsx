@@ -7,6 +7,7 @@ import { BoxArrowInRight, Check } from "react-bootstrap-icons";
 import { LogoutButton } from "components/LogoutButton/LogoutButton";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoggedIn } from "store/auth/auth-slice";
+import { setNoteList } from "store/note/note-slice";
 
 export function Header() {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ export function Header() {
   function logout() {
     localStorage.removeItem("token");
     dispatch(setLoggedIn(false));
+    dispatch(setNoteList([]));
     navigate("/");
   }
 
