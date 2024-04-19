@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { NoteForm } from "components/NoteForm/NoteForm";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { deleteNote, updateNote } from "store/note/note-slice";
 import { NoteAPI } from "api/note-api";
 
@@ -19,17 +19,23 @@ export function Note() {
   const navigate = useNavigate();
 
   const [isEditable, setIsEditable] = useState(false);
+  const [errors, setErrors] = useState([]);
 
   async function submit(formValues) {
-    const updatedNote = await NoteAPI.update({
-      ...formValues,
-      id: note.id,
-      userId: note.userId,
-      created_at: note.created_at,
-      modified_at: new Date().toLocaleDateString(),
-    });
-    dispatch(updateNote(updatedNote));
-    setIsEditable(false);
+    try {
+      const updatedNote = await NoteAPI.update({
+        ...formValues,
+        id: note.id,
+        userId: note.userId,
+        created_at: note.created_at,
+        modified_at: new Date().toLocaleDateString(),
+      });
+      dispatch(updateNote(updatedNote));
+      setIsEditable(false);
+      setErrors([]);
+    } catch (errs) {
+      setErrors(errs.response.data.errors);
+    }
   }
 
   async function removeNote(noteId) {
@@ -39,10 +45,6 @@ export function Note() {
       navigate("/");
     }
   }
-
-  useEffect(() => {
-    dispatch(updateNote(note));
-  }, [isEditable]);
 
   return (
     <>
@@ -55,6 +57,7 @@ export function Note() {
           onTrashClick={() => removeNote(note.id)}
           onSubmit={isEditable && submit}
           buttonLabel="Edit"
+          errors={errors}
         />
       )}
     </>

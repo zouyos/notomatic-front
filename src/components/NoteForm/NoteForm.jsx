@@ -5,7 +5,7 @@ import {
   TrashFill,
   ArrowCounterclockwise,
 } from "react-bootstrap-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ValidatorService } from "services/form-validators";
 import { FieldError } from "components/FieldError/FieldError";
 
@@ -14,7 +14,7 @@ const VALIDATORS = {
     return ValidatorService.min(value, 3) || ValidatorService.max(value, 30);
   },
   content: (value) => {
-    return ValidatorService.min(value, 3) || ValidatorService.max(value, 300);
+    return ValidatorService.min(value, 3);
   },
 };
 
@@ -26,6 +26,7 @@ export function NoteForm({
   onEditClick,
   onTrashClick,
   buttonLabel,
+  errors,
 }) {
   const [formValues, setFormValues] = useState({
     title: note?.title || "",
@@ -34,6 +35,10 @@ export function NoteForm({
   const [formErrors, setFormErrors] = useState({
     title: note?.title ? undefined : "",
     content: note?.content ? undefined : "",
+  });
+  const [serverErrors, setServerErrors] = useState({
+    title: errors.find((err) => err.path === "title")?.msg,
+    content: errors.find((err) => err.path === "content")?.msg,
   });
 
   function validate(fieldName, fieldValue) {
@@ -45,12 +50,19 @@ export function NoteForm({
 
   function updateFormValues(e) {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
-    validate(e.target.name, e.target.value);
+    // validate(e.target.name, e.target.value);
   }
 
   function hasErrors() {
     return Object.values(formErrors).some((error) => error !== undefined);
   }
+
+  useEffect(() => {
+    setServerErrors({
+      title: errors.find((err) => err.path === "title")?.msg,
+      content: errors.find((err) => err.path === "content")?.msg,
+    });
+  }, [errors]);
 
   const titleInput = (
     <div className="mb-4">
@@ -62,7 +74,7 @@ export function NoteForm({
         value={formValues.title}
         onChange={updateFormValues}
       />
-      <FieldError msg={formErrors.title} />
+      <FieldError msg={formErrors.title || serverErrors.title} />
     </div>
   );
 
@@ -77,15 +89,18 @@ export function NoteForm({
         value={formValues.content}
         onChange={updateFormValues}
       />
-      <FieldError msg={formErrors.content} />
+      <FieldError msg={formErrors.content || serverErrors.content} />
     </div>
   );
 
   const submitButton = (
     <div className={style.submit_btn}>
       <ButtonPrimary
-        onClick={() => onSubmit(formValues)}
-        disabled={hasErrors()}
+        onClick={(e) => {
+          e.preventDefault();
+          onSubmit(formValues);
+        }}
+        // disabled={hasErrors()}
       >
         {buttonLabel}
       </ButtonPrimary>
@@ -120,7 +135,11 @@ export function NoteForm({
         {actionIcons}
       </div>
       <div className={style.title_input}>{isEditable && titleInput}</div>
-      {isEditable ? contentInput : <pre>{note.content}</pre>}
+      {isEditable ? (
+        contentInput
+      ) : (
+        <pre className={style.content}>{note.content}</pre>
+      )}
       {onSubmit && submitButton}
     </form>
   );

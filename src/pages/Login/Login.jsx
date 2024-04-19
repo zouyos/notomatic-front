@@ -8,7 +8,7 @@ import { setLoggedIn } from "store/auth/auth-slice";
 export function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [error, setError] = useState(null);
+  const [serverErrors, setServerErrors] = useState([]);
 
   async function login(formValues) {
     const { repeatPassword, ...rest } = formValues;
@@ -17,10 +17,10 @@ export function Login() {
       localStorage.setItem("token", token);
       dispatch(setLoggedIn(true));
       navigate("/");
-    } catch (err) {
-      setError(err.response.data.message || err.message);
+    } catch (errs) {
+      setServerErrors(errs.response.data);
     }
   }
 
-  return <UserForm onSubmit={login} errMsg={error} />;
+  return <UserForm onSubmit={login} serverErrors={serverErrors} />;
 }

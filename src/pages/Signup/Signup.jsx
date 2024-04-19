@@ -5,16 +5,16 @@ import { useNavigate } from "react-router-dom";
 
 export function Signup() {
   const navigate = useNavigate();
-  const [error, setError] = useState(null);
+  const [serverErrors, setServerErrors] = useState([]);
 
   async function signup(formValues) {
     try {
       await NoteAPI.signup(formValues);
       navigate("/login");
-    } catch (err) {
-      setError(err.response.data.message || err.message);
+    } catch (errs) {
+      setServerErrors(errs.response.data);
     }
   }
 
-  return <UserForm signup onSubmit={signup} errMsg={error} />;
+  return <UserForm signup onSubmit={signup} serverErrors={serverErrors} />;
 }
