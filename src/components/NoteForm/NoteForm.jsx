@@ -50,7 +50,7 @@ export function NoteForm({
 
   function updateFormValues(e) {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
-    // validate(e.target.name, e.target.value);
+    validate(e.target.name, e.target.value);
   }
 
   function hasErrors() {
@@ -100,7 +100,7 @@ export function NoteForm({
           e.preventDefault();
           onSubmit(formValues);
         }}
-        // disabled={hasErrors()}
+        disabled={hasErrors()}
       >
         {buttonLabel}
       </ButtonPrimary>

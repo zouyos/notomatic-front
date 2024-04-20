@@ -12,7 +12,7 @@ export function Signup() {
       await NoteAPI.signup(formValues);
       navigate("/login");
     } catch (errs) {
-      setServerErrors(errs.response.data);
+      setServerErrors(errs.response.data || errs);
     }
   }
 

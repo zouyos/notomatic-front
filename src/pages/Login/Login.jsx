@@ -1,5 +1,6 @@
 import { NoteAPI } from "api/note-api";
 import { UserForm } from "components/UserForm/UserForm";
+import Cookies from "js-cookie";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -13,12 +14,12 @@ export function Login() {
   async function login(formValues) {
     const { repeatPassword, ...rest } = formValues;
     try {
-      const { token } = await NoteAPI.login(rest);
-      localStorage.setItem("token", token);
+      await NoteAPI.login(rest);
       dispatch(setLoggedIn(true));
       navigate("/");
     } catch (errs) {
-      setServerErrors(errs.response.data);
+      console.log(errs);
+      setServerErrors(errs.response.data || errs);
     }
   }
 
