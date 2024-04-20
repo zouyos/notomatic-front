@@ -2,8 +2,6 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
-const BASE_URL = "http://localhost:3200/api";
-
 export class NoteAPI {
   static formatId(note) {
     if (note._id) {
@@ -16,10 +14,6 @@ export class NoteAPI {
 
   static getUserIdFromToken() {
     let token = Cookies.get("token");
-    // token.reduce((acc, value) => {
-    //   return acc + value;
-    // });
-    console.log(token);
     if (token) {
       const decodedToken = jwtDecode(token);
       return decodedToken.userId;
@@ -30,7 +24,7 @@ export class NoteAPI {
   static async create(note) {
     try {
       const response = await axios.post(
-        `${BASE_URL}/note/`,
+        `${process.env.BASE_URL}/note/`,
         { ...note, userId: this.getUserIdFromToken() },
         {
           withCredentials: true,
@@ -44,7 +38,7 @@ export class NoteAPI {
 
   static async fetchAll() {
     try {
-      const response = await axios.get(`${BASE_URL}/note/`, {
+      const response = await axios.get(`${process.env.BASE_URL}/note/`, {
         withCredentials: true,
       });
       return response.data.map(this.formatId);
@@ -55,7 +49,7 @@ export class NoteAPI {
 
   static async fetchById(id) {
     try {
-      const response = await axios.get(`${BASE_URL}/note/${id}`, {
+      const response = await axios.get(`${process.env.BASE_URL}/note/${id}`, {
         withCredentials: true,
       });
       return this.formatId(response.data);
@@ -67,7 +61,7 @@ export class NoteAPI {
   static async update(note) {
     try {
       const response = await axios.patch(
-        `${BASE_URL}/note/${note.id}`,
+        `${process.env.BASE_URL}/note/${note.id}`,
         { ...note, userId: this.getUserIdFromToken() },
         {
           withCredentials: true,
@@ -81,9 +75,12 @@ export class NoteAPI {
 
   static async deleteById(id) {
     try {
-      const response = await axios.delete(`${BASE_URL}/note/${id}`, {
-        withCredentials: true,
-      });
+      const response = await axios.delete(
+        `${process.env.BASE_URL}/note/${id}`,
+        {
+          withCredentials: true,
+        }
+      );
       return this.formatId(response.data);
     } catch (err) {
       throw err;
@@ -93,7 +90,7 @@ export class NoteAPI {
   static async signup(user) {
     try {
       return (
-        await axios.post(`${BASE_URL}/auth/signup`, user, {
+        await axios.post(`${process.env.BASE_URL}/auth/signup`, user, {
           withCredentials: true,
         })
       ).data;
@@ -105,7 +102,7 @@ export class NoteAPI {
   static async login(user) {
     try {
       return (
-        await axios.post(`${BASE_URL}/auth/login`, user, {
+        await axios.post(`${process.env.BASE_URL}/auth/login`, user, {
           withCredentials: true,
         })
       ).data;
