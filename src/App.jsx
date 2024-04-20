@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { setNoteList } from "store/note/note-slice";
 import style from "./style.module.css";
-import Cookies from "js-cookie";
 
 export function App() {
   const dispatch = useDispatch();
@@ -21,8 +20,6 @@ export function App() {
       fetchAllNotes();
     }
   }, [loggedIn]);
-
-  console.log(Cookies.get("token"));
 
   return (
     <div className="container-fluid">

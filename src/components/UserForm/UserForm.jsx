@@ -126,8 +126,8 @@ export function UserForm({ signup, onSubmit, serverErrors }) {
           <FieldError msg={serverErrors.message} />
         ) : (
           <ul>
-            {serverErrors.errors?.map((err) => (
-              <li>
+            {serverErrors.errors?.map((err, i) => (
+              <li key={i}>
                 <FieldError msg={err.msg} />
               </li>
             ))}
