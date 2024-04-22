@@ -1,5 +1,4 @@
 import { NoteForm } from "components/NoteForm/NoteForm";
-import style from "./style.module.css";
 import { NoteAPI } from "api/note-api";
 import { useDispatch } from "react-redux";
 import { addNote } from "store/note/note-slice";
