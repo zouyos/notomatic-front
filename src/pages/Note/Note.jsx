@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { NoteForm } from "components/NoteForm/NoteForm";
 import { useState } from "react";
@@ -21,10 +21,7 @@ export function Note() {
   const [isEditable, setIsEditable] = useState(false);
 
   async function submit(formValues) {
-    const updatedNote = await NoteAPI.update({
-      ...formValues,
-      id: note.id,
-    });
+    const updatedNote = await NoteAPI.update({ ...formValues, id: note.id });
     dispatch(updateNote(updatedNote));
     setIsEditable(false);
   }

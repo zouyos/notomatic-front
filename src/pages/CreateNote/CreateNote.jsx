@@ -1,4 +1,5 @@
 import { NoteForm } from "components/NoteForm/NoteForm";
+import style from "./style.module.css";
 import { NoteAPI } from "api/note-api";
 import { useDispatch } from "react-redux";
 import { addNote } from "store/note/note-slice";
@@ -13,7 +14,6 @@ export function CreateNote() {
       ...formValues,
       created_at: new Date().toLocaleDateString(),
     });
-    console.log(createdNote);
     dispatch(addNote(createdNote));
     navigate("/");
   }

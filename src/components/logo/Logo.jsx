@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import s from "./style.module.css";
 export function Logo({ image, title, subtitle, onClick }) {
   return (
