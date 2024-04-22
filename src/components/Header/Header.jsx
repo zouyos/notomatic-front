@@ -8,7 +8,6 @@ import { LogoutButton } from "components/LogoutButton/LogoutButton";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoggedIn } from "store/auth/auth-slice";
 import { setNoteList } from "store/note/note-slice";
-import Cookies from "js-cookie";
 
 export function Header() {
   const dispatch = useDispatch();
@@ -17,7 +16,7 @@ export function Header() {
   const loggedIn = useSelector((store) => store.AUTH.loggedIn);
 
   function logout() {
-    Cookies.remove("token");
+    localStorage.removeItem("token");
     dispatch(setLoggedIn(false));
     dispatch(setNoteList([]));
     navigate("/");

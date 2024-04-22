@@ -1,6 +1,7 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+
+const BASE_URL = "http://localhost:3200/api";
 
 export class NoteAPI {
   static formatId(note) {
@@ -13,7 +14,7 @@ export class NoteAPI {
   }
 
   static getUserIdFromToken() {
-    let token = Cookies.get("token");
+    const token = localStorage.getItem("token");
     if (token) {
       const decodedToken = jwtDecode(token);
       return decodedToken.userId;
@@ -22,12 +23,13 @@ export class NoteAPI {
   }
 
   static async create(note) {
+    const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/note/`,
+        `${BASE_URL}/note/`,
         { ...note, userId: this.getUserIdFromToken() },
         {
-          withCredentials: true,
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       return this.formatId(response.data);
@@ -37,13 +39,11 @@ export class NoteAPI {
   }
 
   static async fetchAll() {
+    const token = localStorage.getItem("token");
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/note/`,
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.get(`${BASE_URL}/note/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       return response.data.map(this.formatId);
     } catch (err) {
       throw err;
@@ -51,13 +51,11 @@ export class NoteAPI {
   }
 
   static async fetchById(id) {
+    const token = localStorage.getItem("token");
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/note/${id}`,
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.get(`${BASE_URL}/note/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       return this.formatId(response.data);
     } catch (err) {
       throw err;
@@ -65,12 +63,13 @@ export class NoteAPI {
   }
 
   static async update(note) {
+    const token = localStorage.getItem("token");
     try {
       const response = await axios.patch(
-        `${process.env.REACT_APP_BASE_URL}/note/${note.id}`,
+        `${BASE_URL}/note/${note.id}`,
         { ...note, userId: this.getUserIdFromToken() },
         {
-          withCredentials: true,
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       return this.formatId(response.data);
@@ -80,13 +79,11 @@ export class NoteAPI {
   }
 
   static async deleteById(id) {
+    const token = localStorage.getItem("token");
     try {
-      const response = await axios.delete(
-        `${process.env.REACT_APP_BASE_URL}/note/${id}`,
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.delete(`${BASE_URL}/note/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       return this.formatId(response.data);
     } catch (err) {
       throw err;
@@ -95,15 +92,7 @@ export class NoteAPI {
 
   static async signup(user) {
     try {
-      return (
-        await axios.post(
-          `${process.env.REACT_APP_BASE_URL}/auth/signup`,
-          user,
-          {
-            withCredentials: true,
-          }
-        )
-      ).data;
+      return (await axios.post(`${BASE_URL}/auth/signup`, user)).data;
     } catch (err) {
       throw err;
     }
@@ -111,11 +100,7 @@ export class NoteAPI {
 
   static async login(user) {
     try {
-      return (
-        await axios.post(`${process.env.REACT_APP_BASE_URL}/auth/login`, user, {
-          withCredentials: true,
-        })
-      ).data;
+      return (await axios.post(`${BASE_URL}/auth/login`, user)).data;
     } catch (err) {
       throw err;
     }
