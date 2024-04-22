@@ -17,6 +17,8 @@ export function BrowseNotes() {
     return containsTitle || containsContent;
   });
 
+  console.log(noteList);
+
   return (
     <>
       <div className="row justify-content-center mb-5">

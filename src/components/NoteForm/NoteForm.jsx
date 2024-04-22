@@ -121,7 +121,17 @@ export function NoteForm({
       </div>
       <div className={style.title_input}>{isEditable && titleInput}</div>
       {isEditable ? contentInput : <pre>{note.content}</pre>}
+
       {onSubmit && submitButton}
+      {note && !isEditable && (
+        <div>
+          <hr />
+          <div className={style.note_footer}>
+            Créée le {note.created_at}
+            {note.modified_at && <span> | Modifiée le {note.modified_at}</span>}
+          </div>
+        </div>
+      )}
     </form>
   );
 }

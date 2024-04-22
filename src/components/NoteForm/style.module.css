@@ -16,3 +16,8 @@
   max-width: 300px;
   margin-bottom: 12px;
 }
+
+.note_footer {
+  font-size: 12px;
+  font-style: italic;
+}

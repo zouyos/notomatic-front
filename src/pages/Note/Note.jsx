@@ -24,6 +24,7 @@ export function Note() {
       updateNote({
         ...formValues,
         id: note.id,
+        created_at: note.created_at,
         modified_at: new Date().toLocaleDateString(),
       })
     );
