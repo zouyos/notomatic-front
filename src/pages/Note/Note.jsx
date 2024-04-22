@@ -39,17 +39,15 @@ export function Note() {
 
   return (
     <>
-      {note && (
-        <NoteForm
-          isEditable={isEditable}
-          title={isEditable ? "Edit Note" : note.title}
-          note={note}
-          onEditClick={() => setIsEditable(!isEditable)}
-          onTrashClick={() => removeNote(note.id)}
-          onSubmit={isEditable && submit}
-          buttonLabel="Edit"
-        />
-      )}
+      <NoteForm
+        isEditable={isEditable}
+        title={isEditable ? "Edit Note" : note.title}
+        note={note}
+        onEditClick={() => setIsEditable(!isEditable)}
+        onTrashClick={() => removeNote(note.id)}
+        onSubmit={isEditable && submit}
+        buttonLabel="Edit"
+      />
     </>
   );
 }
