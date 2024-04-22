@@ -14,7 +14,7 @@ const VALIDATORS = {
     return ValidatorService.min(value, 3) || ValidatorService.max(value, 30);
   },
   content: (value) => {
-    return ValidatorService.min(value, 3) || ValidatorService.max(value, 300);
+    return ValidatorService.min(value, 3) || ValidatorService.max(value, 3000);
   },
 };
 
