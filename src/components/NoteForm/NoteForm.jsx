@@ -73,7 +73,7 @@ export function NoteForm({
         type="text"
         name="content"
         className="form-control"
-        rows={6}
+        rows={12}
         value={formValues.content}
         onChange={updateFormValues}
       />

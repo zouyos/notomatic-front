@@ -17,11 +17,9 @@ export function BrowseNotes() {
     return containsTitle || containsContent;
   });
 
-  console.log(noteList);
-
   return (
     <>
-      <div className="row justify-content-center mb-5">
+      <div className="row justify-content-center mt-4 mb-5">
         <div className="col-sm-12 col-md-4">
           <SearchBar
             placeholder="Search your notes..."

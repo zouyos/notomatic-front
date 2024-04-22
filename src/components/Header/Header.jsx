@@ -9,7 +9,7 @@ export function Header() {
 
   return (
     <div className={`row ${style.container}`}>
-      <div className="col-xs-12 col-sm-4">
+      <div className="col-xs-12 col-sm-4 p-2">
         <Logo
           onClick={() => navigate("/")}
           title="Notomatic"
@@ -17,7 +17,7 @@ export function Header() {
           image={logo}
         />
       </div>
-      <div className="col-xs-12 col-sm-8 text-end">
+      <div className="col-xs-12 col-sm-8 text-end p-2">
         <ButtonPrimary onClick={() => navigate("/note/new")}>
           Add Note +
         </ButtonPrimary>
