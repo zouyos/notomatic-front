@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { NoteForm } from "components/NoteForm/NoteForm";
 import { useState } from "react";
 import { deleteNote, updateNote } from "store/note/note-slice";
-import { NoteAPI } from "api/note-api";
 
 export function Note() {
   const { noteId } = useParams();
@@ -21,14 +20,18 @@ export function Note() {
   const [isEditable, setIsEditable] = useState(false);
 
   async function submit(formValues) {
-    const updatedNote = await NoteAPI.update({ ...formValues, id: note.id });
-    dispatch(updateNote(updatedNote));
+    dispatch(
+      updateNote({
+        ...formValues,
+        id: note.id,
+        modified_at: new Date().toLocaleDateString(),
+      })
+    );
     setIsEditable(false);
   }
 
   async function removeNote(noteId) {
     if (window.confirm("Supprimer la note ?")) {
-      await NoteAPI.deleteById(noteId);
       dispatch(deleteNote(noteId));
       navigate("/");
     }
