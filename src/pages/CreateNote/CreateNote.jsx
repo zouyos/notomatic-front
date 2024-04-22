@@ -13,6 +13,7 @@ export function CreateNote() {
       ...formValues,
       created_at: new Date().toLocaleDateString(),
     });
+    console.log(createdNote);
     dispatch(addNote(createdNote));
     navigate("/");
   }
