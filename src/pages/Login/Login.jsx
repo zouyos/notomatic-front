@@ -8,18 +8,19 @@ import { setLoggedIn } from "store/auth/auth-slice";
 export function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [serverErrors, setServerErrors] = useState([]);
+  const [error, setError] = useState(null);
 
   async function login(formValues) {
     const { repeatPassword, ...rest } = formValues;
     try {
-      await NoteAPI.login(rest);
+      const { token } = await NoteAPI.login(rest);
+      localStorage.setItem("token", token);
       dispatch(setLoggedIn(true));
       navigate("/");
-    } catch (errs) {
-      setServerErrors(errs.response.data || errs);
+    } catch (err) {
+      setError(err.response.data.message || err.message);
     }
   }
 
-  return <UserForm onSubmit={login} serverErrors={serverErrors} />;
+  return <UserForm onSubmit={login} errMsg={error} />;
 }

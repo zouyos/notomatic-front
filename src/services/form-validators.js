@@ -8,7 +8,7 @@ export class ValidatorService {
   }
 
   static emailRegex(value) {
-    const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    const regex = /@/;
     if (!regex.test(value)) {
       return "Please type a valid email format";
     }
@@ -17,7 +17,7 @@ export class ValidatorService {
   static passwordRegex(value) {
     const regex = /^(?=.*[A-Z])[A-Za-z0-9]+$/;
     if (!regex.test(value)) {
-      return "Only letters (at least one uppercase) and numbers are allowed";
+      return "Only letters (at least one in uppercase) and numbers are allowed";
     }
   }
 
