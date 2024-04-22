@@ -1,7 +1,7 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
-const BASE_URL = "http://localhost:3200/api";
+const BASE_URL = "http://localhost:3200/api/notes";
 
 export class NoteAPI {
   static formatId(note) {
@@ -39,6 +39,7 @@ export class NoteAPI {
   }
 
   static async fetchAll() {
+<<<<<<< HEAD
     const token = localStorage.getItem("token");
     try {
       const response = await axios.get(`${BASE_URL}/note/`, {
@@ -104,5 +105,27 @@ export class NoteAPI {
     } catch (err) {
       throw err;
     }
+=======
+    return (await axios.get(`${BASE_URL}`)).data.map(this.formatId);
+  }
+
+  static async fetchById(id) {
+    return this.formatId((await axios.get(`${BASE_URL}/${id}`)).data);
+  }
+
+  static async update(note) {
+    return this.formatId(
+      (await axios.patch(`${BASE_URL}/${note.id}`, note)).data
+    );
+  }
+
+  static async deleteById(id) {
+    return (await axios.delete(`${BASE_URL}/${id}`)).data;
+  }
+
+  static formatId(note) {
+    const { _id, ...rest } = note;
+    return { id: _id.toString(), ...rest };
+>>>>>>> parent of b7de150 (auth part 2)
   }
 }

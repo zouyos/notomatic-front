@@ -3,11 +3,14 @@ import style from "./style.module.css";
 import logo from "assets/images/logo.png";
 import { ButtonPrimary } from "components/ButtonPrimary/ButtonPrimary";
 import { useNavigate } from "react-router-dom";
+<<<<<<< HEAD
 import { BoxArrowInRight, Check } from "react-bootstrap-icons";
 import { LogoutButton } from "components/LogoutButton/LogoutButton";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoggedIn } from "store/auth/auth-slice";
 import { setNoteList } from "store/note/note-slice";
+=======
+>>>>>>> parent of b7de150 (auth part 2)
 
 export function Header() {
   const dispatch = useDispatch();
@@ -24,7 +27,11 @@ export function Header() {
 
   return (
     <div className={`row ${style.container}`}>
+<<<<<<< HEAD
       <div className="col-xs-12 col-sm-4 py-2 px-3">
+=======
+      <div className="col-xs-12 col-sm-4">
+>>>>>>> parent of b7de150 (auth part 2)
         <Logo
           onClick={() => navigate("/")}
           title="Notomatic"
@@ -32,6 +39,7 @@ export function Header() {
           image={logo}
         />
       </div>
+<<<<<<< HEAD
       <div className="col-xs-12 col-sm-4 text-center py-2 px-3">
         {loggedIn && (
           <ButtonPrimary onClick={() => navigate("/note/new")}>
@@ -56,6 +64,13 @@ export function Header() {
           </span>
         </div>
       )}
+=======
+      <div className="col-xs-12 col-sm-8 text-end">
+        <ButtonPrimary onClick={() => navigate("/note/new")}>
+          Add Note +
+        </ButtonPrimary>
+      </div>
+>>>>>>> parent of b7de150 (auth part 2)
     </div>
   );
 }
