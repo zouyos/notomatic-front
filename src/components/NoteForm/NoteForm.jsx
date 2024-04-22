@@ -11,10 +11,10 @@ import { FieldError } from "components/FieldError/FieldError";
 
 const VALIDATORS = {
   title: (value) => {
-    return ValidatorService.min(value, 3) || ValidatorService.max(value, 30);
+    return ValidatorService.min(value, 3) || ValidatorService.max(value, 50);
   },
   content: (value) => {
-    return ValidatorService.min(value, 3) || ValidatorService.max(value, 3000);
+    return ValidatorService.min(value, 3) || ValidatorService.max(value, 5000);
   },
 };
 
@@ -120,15 +120,19 @@ export function NoteForm({
         {actionIcons}
       </div>
       <div className={style.title_input}>{isEditable && titleInput}</div>
-      {isEditable ? contentInput : <pre>{note.content}</pre>}
+      {isEditable ? (
+        contentInput
+      ) : (
+        <pre className={style.pre_content}>{note.content}</pre>
+      )}
 
       {onSubmit && submitButton}
       {note && !isEditable && (
         <div>
           <hr />
           <div className={style.note_footer}>
-            Créée le {note.created_at}
-            {note.modified_at && <span> | Modifiée le {note.modified_at}</span>}
+            Created at {note.created_at}
+            {note.modified_at && <span> | Modified at {note.modified_at}</span>}
           </div>
         </div>
       )}

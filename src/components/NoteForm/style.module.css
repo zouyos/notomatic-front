@@ -17,7 +17,12 @@
   margin-bottom: 12px;
 }
 
+.pre_content {
+  font-size: 16px;
+  text-wrap: wrap;
+}
+
 .note_footer {
   font-size: 12px;
-  font-style: italic;
+  color: #b8b8b8;
 }
