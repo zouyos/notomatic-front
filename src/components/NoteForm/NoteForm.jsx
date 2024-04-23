@@ -94,7 +94,7 @@ export function NoteForm({
 
   const actionIcons = (
     <div>
-      <span className="me-2">
+      <span className="me-3">
         {onEditClick && onSubmit ? (
           <ArrowCounterclockwise className={style.icon} onClick={onEditClick} />
         ) : (
