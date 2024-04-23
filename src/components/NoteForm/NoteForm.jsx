@@ -93,8 +93,8 @@ export function NoteForm({
   );
 
   const actionIcons = (
-    <>
-      <div className="col-1">
+    <div>
+      <span className="mx-3">
         {onEditClick && onSubmit ? (
           <ArrowCounterclockwise className={style.icon} onClick={onEditClick} />
         ) : (
@@ -102,21 +102,19 @@ export function NoteForm({
             <PencilFill className={style.icon} onClick={onEditClick} />
           )
         )}
-      </div>
-      <div className="col-1">
+      </span>
+      <span className="mx-3">
         {onTrashClick && (
           <TrashFill className={style.icon} onClick={onTrashClick} />
         )}
-      </div>
-    </>
+      </span>
+    </div>
   );
 
   return (
     <form className={style.container}>
-      <div className="row justify-content-space-between">
-        <div className="col-10">
-          <h2 className="mb-2">{title}</h2>
-        </div>
+      <div className="d-flex justify-content-between">
+        <h2 className="mb-2">{title}</h2>
         {actionIcons}
       </div>
       <div className={style.title_input}>{isEditable && titleInput}</div>

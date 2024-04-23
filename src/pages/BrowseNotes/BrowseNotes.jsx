@@ -28,7 +28,7 @@ export function BrowseNotes() {
         </div>
       </div>
       {noteList?.length === 0 && (
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center text-center">
           <span>
             You don't have notes yet, would you like to{" "}
             <Link to="/note/new">create one</Link>?
