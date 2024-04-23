@@ -94,7 +94,7 @@ export function NoteForm({
 
   const actionIcons = (
     <div>
-      <span className="mx-3">
+      <span className="me-2">
         {onEditClick && onSubmit ? (
           <ArrowCounterclockwise className={style.icon} onClick={onEditClick} />
         ) : (
@@ -103,7 +103,7 @@ export function NoteForm({
           )
         )}
       </span>
-      <span className="mx-3">
+      <span>
         {onTrashClick && (
           <TrashFill className={style.icon} onClick={onTrashClick} />
         )}
