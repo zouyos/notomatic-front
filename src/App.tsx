@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import { setNoteList } from './store/note/note-slice';
+import { setLoggedIn } from './store/auth/auth-slice';
 import style from './style.module.css';
 import { NoteType } from './types/types';
 
@@ -17,11 +18,7 @@ export function App() {
   }
 
   useEffect(() => {
-    const storedLoggedIn: boolean = JSON.parse(
-      localStorage.getItem('loggedIn') || 'false',
-    );
-
-    if (loggedIn || storedLoggedIn) {
+    if (loggedIn) {
       fetchAllNotes();
     }
   }, [loggedIn]);
