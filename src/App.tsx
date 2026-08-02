@@ -17,9 +17,10 @@ export function App() {
   }
 
   useEffect(() => {
-    const storedLoggedIn: boolean | null = JSON.parse(
-      localStorage.getItem('loggedIn')
+    const storedLoggedIn: boolean = JSON.parse(
+      localStorage.getItem('loggedIn') || 'false',
     );
+
     if (loggedIn || storedLoggedIn) {
       fetchAllNotes();
     }

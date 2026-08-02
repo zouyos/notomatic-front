@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { ValidatorService } from '../../services/form-validators';
 import { FieldError } from '../../components/FieldError/FieldError';
 import he from 'he';
-import { NoteType } from 'src/types/types';
+import { NoteType } from '@/types/types';
 
 const VALIDATORS: any = {
   title: (value: string) => {
@@ -62,7 +62,7 @@ export function NoteForm({
   }
 
   function updateFormValues(
-    e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) {
     const { name, value } = e.target as HTMLInputElement | HTMLTextAreaElement;
     setFormValues({ ...formValues, [name]: value });

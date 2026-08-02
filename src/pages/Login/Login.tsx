@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { setLoggedIn } from '../../store/auth/auth-slice';
-import { User } from 'src/types/types';
+import { User } from '@/types/types';
 
 export function Login() {
   const dispatch = useDispatch();

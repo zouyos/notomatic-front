@@ -1,4 +1,4 @@
-import { User } from 'src/types/types';
+import { User } from '@/types/types';
 import { NoteAPI } from '../../api/note-api';
 import { UserForm } from '../../components/UserForm/UserForm';
 import { useState } from 'react';

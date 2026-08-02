@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
 
+const storedLoggedIn = localStorage.getItem('loggedIn');
+
 export const authSlice = createSlice({
   name: 'authSlice',
   initialState: {
     loggedIn:
-      Cookies.get('token') && JSON.parse(localStorage.getItem('loggedIn')),
+      Cookies.get('token') && JSON.parse(localStorage.getItem('loggedIn') || 'false'),
     serverErrors: [],
   },
   reducers: {

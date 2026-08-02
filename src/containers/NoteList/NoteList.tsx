@@ -3,7 +3,7 @@ import { TextCard } from '../../components/TextCard/TextCard';
 import { useNavigate } from 'react-router-dom';
 import { NoteAPI } from '../../api/note-api';
 import { deleteNote } from '../../store/note/note-slice';
-import { NoteType } from 'src/types/types';
+import { NoteType } from '@/types/types';
 
 type NoteListProps = {
   noteList: NoteType[];
