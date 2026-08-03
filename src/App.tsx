@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import { setNoteList } from './store/note/note-slice';
-import { setLoggedIn } from './store/auth/auth-slice';
 import style from './style.module.css';
 import { NoteType } from './types/types';
 
