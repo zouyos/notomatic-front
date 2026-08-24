@@ -8,7 +8,7 @@ import { LogoutButton } from '../../components/LogoutButton/LogoutButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoggedIn } from '../../store/auth/auth-slice';
 import { setNoteList } from '../../store/note/note-slice';
-import Cookies from 'js-cookie';
+import { NoteAPI } from '@/api/note-api';
 
 export function Header() {
   const dispatch = useDispatch();
@@ -16,12 +16,16 @@ export function Header() {
 
   const loggedIn = useSelector((store: any) => store.AUTH.loggedIn);
 
-  function logout() {
-    Cookies.remove('token');
-    localStorage.removeItem('loggedIn');
-    dispatch(setLoggedIn(false));
-    dispatch(setNoteList([]));
-    navigate('/');
+  async function logout() {
+    try {
+      await NoteAPI.logout();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      dispatch(setLoggedIn(false));
+      dispatch(setNoteList([]));
+      navigate('/');
+    }
   }
 
   return (

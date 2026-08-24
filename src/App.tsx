@@ -1,15 +1,17 @@
 import { NoteAPI } from './api/note-api';
 import { Header } from './components/Header/Header';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import { setNoteList } from './store/note/note-slice';
 import style from './style.module.css';
 import { NoteType } from './types/types';
+import { setLoggedIn } from './store/auth/auth-slice';
 
 export function App() {
   const dispatch = useDispatch();
   const loggedIn = useSelector((store: any) => store.AUTH.loggedIn);
+  const [authChecked, setAuthChecked] = useState(false);
 
   async function fetchAllNotes() {
     const noteList: NoteType[] = await NoteAPI.fetchAll();
@@ -17,10 +19,21 @@ export function App() {
   }
 
   useEffect(() => {
-    if (loggedIn) {
-      fetchAllNotes();
+    async function checkAuthentication() {
+      try {
+        await NoteAPI.checkAuth();
+        dispatch(setLoggedIn(true));
+        const noteList = await NoteAPI.fetchAll();
+        dispatch(setNoteList(noteList));
+      } catch (err) {
+        dispatch(setLoggedIn(false));
+        dispatch(setNoteList([]));
+      } finally {
+        setAuthChecked(true);
+      }
     }
-  }, [loggedIn]);
+    checkAuthentication();
+  }, [dispatch]);
 
   return (
     <div className='container-fluid'>

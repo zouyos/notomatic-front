@@ -9,13 +9,10 @@ import { type NoteType } from '../../types/types';
 
 export function Note() {
   const { noteId } = useParams();
-  // example usage of usSearchParams
-  // const [searchParams] = useSearchParams();
-  // const foo = searchParams.get("foo"); // output "bar"
 
   const dispatch = useDispatch();
   const note = useSelector((store: any) =>
-    store.NOTE.noteList.find((note: NoteType) => note.id === noteId)
+    store.NOTE.noteList.find((note: NoteType) => note.id === noteId),
   );
 
   const navigate = useNavigate();

@@ -1,11 +1,5 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
-import { jwtDecode } from 'jwt-decode';
 import { type User, type NoteType } from '../types/types';
-
-interface JwtPayload {
-  userId: string
-}
 
 export class NoteAPI {
   static formatId(note: NoteType) {
@@ -17,20 +11,11 @@ export class NoteAPI {
     }
   }
 
-  static getUserIdFromToken() {
-    const token = Cookies.get('token');
-    if (token) {
-      const decodedToken: JwtPayload = jwtDecode(token);
-      return decodedToken?.userId;
-    }
-    return null;
-  }
-
   static async create(note: NoteType) {
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_DOMAIN}/note/`,
-        { ...note, userId: this.getUserIdFromToken() },
+        note,
         {
           withCredentials: true,
         }
@@ -73,7 +58,7 @@ export class NoteAPI {
     try {
       const response = await axios.patch(
         `${process.env.REACT_APP_BACKEND_DOMAIN}/note/${note.id}`,
-        { ...note, userId: this.getUserIdFromToken() },
+        note,
         {
           withCredentials: true,
         }
@@ -123,6 +108,27 @@ export class NoteAPI {
     } catch (err) {
       throw err;
     }
+  }
+
+  static async checkAuth() {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACKEND_DOMAIN}/auth/check`,
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  }
+
+  static async logout() {
+    const response = await axios.post(
+      `${process.env.REACT_APP_BACKEND_DOMAIN}/auth/logout`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data;
   }
 
   static async requestPasswordReset(email: string) {
