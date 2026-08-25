@@ -3,7 +3,7 @@ import style from './style.module.css';
 import { useEffect, useState } from 'react';
 import { FieldError } from '../../components/FieldError/FieldError';
 import { EnvelopeAt, ShieldLock } from 'react-bootstrap-icons';
-import { User } from '@/types/types';
+import { User } from '../../types/types';
 
 type UserFormProps = {
   signup?: boolean;
