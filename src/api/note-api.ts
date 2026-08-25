@@ -104,6 +104,7 @@ export class NoteAPI {
       const res = await axios.post(`${process.env.REACT_APP_BACKEND_DOMAIN}/auth/login`, user, {
         withCredentials: true,
       })
+      console.log('LOGIN RESPONSE:', res.status, res.data);
       return res.data;
     } catch (err) {
       throw err;
