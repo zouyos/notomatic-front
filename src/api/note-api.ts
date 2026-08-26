@@ -28,14 +28,20 @@ export class NoteAPI {
 
   static async fetchAll() {
     try {
+      console.log('API FETCH ALL REQUEST');
+
       const response = await axios.get(
-        '/api/note/',
+        `${process.env.REACT_APP_BACKEND_DOMAIN}/note/`,
         {
           withCredentials: true,
         }
       );
-      return response.data.map(this.formatId)
+
+      console.log('API FETCH ALL RESPONSE', response.status, response.data);
+
+      return response.data.map(this.formatId);
     } catch (err) {
+      console.error('API FETCH ALL ERROR', err);
       throw err;
     }
   }
