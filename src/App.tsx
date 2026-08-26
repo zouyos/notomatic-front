@@ -12,19 +12,32 @@ export function App() {
   const dispatch = useDispatch();
   const [authChecked, setAuthChecked] = useState(false);
 
+  console.log('APP MOUNT');
+
   useEffect(() => {
     async function checkAuthentication() {
+      console.log('CHECK AUTH START');
+
       try {
         await NoteAPI.checkAuth();
+        console.log('CHECK AUTH SUCCESS');
 
         dispatch(setLoggedIn(true));
 
+        console.log('FETCH NOTES START');
+
         const noteList: NoteType[] = await NoteAPI.fetchAll();
+
+        console.log('FETCH NOTES SUCCESS', noteList);
+
         dispatch(setNoteList(noteList));
       } catch (err) {
+        console.error('APP AUTH/FETCH ERROR', err);
+
         dispatch(setLoggedIn(false));
         dispatch(setNoteList([]));
       } finally {
+        console.log('AUTH CHECKED');
         setAuthChecked(true);
       }
     }
