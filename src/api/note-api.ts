@@ -34,7 +34,7 @@ export class NoteAPI {
           withCredentials: true,
         }
       );
-      return response.data.map(this.formatId);
+      return response.data.map(this.formatId)
     } catch (err) {
       throw err;
     }
