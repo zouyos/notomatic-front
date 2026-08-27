@@ -1,7 +1,7 @@
 import { NoteAPI } from './api/note-api';
 import { Header } from './components/Header/Header';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import { setNoteList } from './store/note/note-slice';
 import style from './style.module.css';
@@ -10,40 +10,41 @@ import { setLoggedIn } from './store/auth/auth-slice';
 
 export function App() {
   const dispatch = useDispatch();
+  const loggedIn = useSelector((store: any) => store.AUTH.loggedIn);
   const [authChecked, setAuthChecked] = useState(false);
-
-  console.log('APP MOUNT');
 
   useEffect(() => {
     async function checkAuthentication() {
-      console.log('CHECK AUTH START');
-
       try {
         await NoteAPI.checkAuth();
-        console.log('CHECK AUTH SUCCESS');
-
         dispatch(setLoggedIn(true));
-
-        console.log('FETCH NOTES START');
-
-        const noteList: NoteType[] = await NoteAPI.fetchAll();
-
-        console.log('FETCH NOTES SUCCESS', noteList);
-
-        dispatch(setNoteList(noteList));
       } catch (err) {
-        console.error('APP AUTH/FETCH ERROR', err);
-
         dispatch(setLoggedIn(false));
         dispatch(setNoteList([]));
       } finally {
-        console.log('AUTH CHECKED');
         setAuthChecked(true);
       }
     }
 
     checkAuthentication();
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!authChecked || !loggedIn) {
+      return;
+    }
+
+    async function fetchNotes() {
+      try {
+        const noteList: NoteType[] = await NoteAPI.fetchAll();
+        dispatch(setNoteList(noteList));
+      } catch (err) {
+        console.error('Failed to fetch notes:', err);
+      }
+    }
+
+    fetchNotes();
+  }, [authChecked, loggedIn, dispatch]);
 
   if (!authChecked) {
     return null;
