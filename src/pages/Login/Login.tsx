@@ -18,19 +18,11 @@ export function Login() {
     try {
       await NoteAPI.login(rest);
 
-      console.log('LOGIN SUCCESS');
-
-      const noteList = await NoteAPI.fetchAll();
-
-      console.log('NOTES FETCH SUCCESS', noteList);
-
-      dispatch(setNoteList(noteList));
       dispatch(setLoggedIn(true));
-
       navigate('/');
     } catch (errs: any) {
-      console.error('LOGIN/FETCH ERROR', errs);
       setServerErrors(errs.response?.data?.errors || [errs.message]);
+      console.error(errs);
     }
   }
 
