@@ -10,41 +10,39 @@ import { setLoggedIn } from './store/auth/auth-slice';
 
 export function App() {
   const dispatch = useDispatch();
-  const loggedIn = useSelector((store: any) => store.AUTH.loggedIn);
   const [authChecked, setAuthChecked] = useState(false);
 
   useEffect(() => {
     async function checkAuthentication() {
+      console.log('CHECK AUTH START');
+
       try {
         await NoteAPI.checkAuth();
+
+        console.log('CHECK AUTH SUCCESS');
+
         dispatch(setLoggedIn(true));
+
+        console.log('FETCH NOTES START');
+
+        const noteList: NoteType[] = await NoteAPI.fetchAll();
+
+        console.log('FETCH NOTES SUCCESS', noteList);
+
+        dispatch(setNoteList(noteList));
       } catch (err) {
+        console.error('AUTH/FETCH ERROR', err);
+
         dispatch(setLoggedIn(false));
         dispatch(setNoteList([]));
       } finally {
         setAuthChecked(true);
+        console.log('AUTH CHECKED');
       }
     }
 
     checkAuthentication();
   }, [dispatch]);
-
-  useEffect(() => {
-    if (!authChecked || !loggedIn) {
-      return;
-    }
-
-    async function fetchNotes() {
-      try {
-        const noteList: NoteType[] = await NoteAPI.fetchAll();
-        dispatch(setNoteList(noteList));
-      } catch (err) {
-        console.error('Failed to fetch notes:', err);
-      }
-    }
-
-    fetchNotes();
-  }, [authChecked, loggedIn, dispatch]);
 
   if (!authChecked) {
     return null;
