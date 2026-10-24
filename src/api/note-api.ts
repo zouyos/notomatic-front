@@ -30,12 +30,16 @@ export class NoteAPI {
     try {
       const response = await axios.get(
         '/api/note/',
-        {
-          withCredentials: true,
-        }
+        { withCredentials: true }
       );
-      return response.data.map(this.formatId)
+
+      console.log('FETCH NOTES STATUS:', response.status);
+      console.log('FETCH NOTES DATA:', response.data);
+      console.log('IS ARRAY:', Array.isArray(response.data));
+
+      return response.data.map(this.formatId);
     } catch (err) {
+      console.error('FETCH NOTES ERROR:', err);
       throw err;
     }
   }
