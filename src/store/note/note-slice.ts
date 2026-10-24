@@ -20,6 +20,12 @@ export const noteSlice = createSlice({
 
       if (indexToUpdate !== -1) {
         currentSlice.noteList[indexToUpdate] = action.payload;
+
+        currentSlice.noteList.sort(
+          (a: NoteType, b: NoteType) =>
+            new Date(b.modified_at || b.created_at).getTime() -
+            new Date(a.modified_at || a.created_at).getTime()
+        );
       }
     },
     deleteNote: (currentSlice, action) => {
