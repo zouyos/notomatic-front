@@ -11,7 +11,7 @@ export const noteSlice = createSlice({
       currentSlice.noteList = action.payload;
     },
     addNote: (currentSlice, action) => {
-      currentSlice.noteList.push(action.payload as NoteType);
+      currentSlice.noteList.unshift(action.payload as NoteType);
     },
     updateNote: (currentSlice, action) => {
       const indexToUpdate = currentSlice.noteList.findIndex(
