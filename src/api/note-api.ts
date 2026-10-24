@@ -26,41 +26,13 @@ export class NoteAPI {
     }
   }
 
-
   static async fetchAll() {
     try {
-      const response = await axios.get('/api/note/', {
+      const response = await axios.get('/api/note', {
         withCredentials: true,
       });
-
-      console.log('[fetchAll] URL :', response.config.url);
-      console.log('[fetchAll] Status :', response.status);
-      console.log('[fetchAll] Content-Type :', response.headers['content-type']);
-      console.log('[fetchAll] Data :', response.data);
-
-      if (!Array.isArray(response.data)) {
-        throw new Error(
-          `Réponse inattendue de fetchAll : status=${response.status}, ` +
-          `content-type=${response.headers['content-type']}, ` +
-          `data=${String(response.data).slice(0, 200)}`
-        );
-      }
-
       return response.data.map(this.formatId);
     } catch (err) {
-      if (axios.isAxiosError(err)) {
-        console.error('[fetchAll] Erreur HTTP :', {
-          message: err.message,
-          url: err.config?.url,
-          baseURL: err.config?.baseURL,
-          status: err.response?.status,
-          contentType: err.response?.headers['content-type'],
-          data: err.response?.data,
-        });
-      } else {
-        console.error('[fetchAll] Erreur :', err);
-      }
-
       throw err;
     }
   }
@@ -129,10 +101,8 @@ export class NoteAPI {
       const res = await axios.post('/api/auth/login', user, {
         withCredentials: true,
       })
-      console.log('LOGIN RESPONSE:', res.status, res.data);
       return res.data;
     } catch (err) {
-      console.error('[Login] Erreur complète :', err);
       throw err;
     }
   }
