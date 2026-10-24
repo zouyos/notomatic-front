@@ -14,7 +14,7 @@ export class NoteAPI {
   static async create(note: NoteType) {
     try {
       const response = await axios.post(
-        '/api/note/',
+        '/api/note',
         note,
         {
           withCredentials: true,
