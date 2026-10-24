@@ -14,7 +14,7 @@ export class NoteAPI {
   static async create(note: NoteType) {
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_DOMAIN}/api/note/`,
+        '/api/note/',
         note,
         {
           withCredentials: true,
@@ -29,7 +29,7 @@ export class NoteAPI {
   static async fetchAll() {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_DOMAIN}/api/note/`,
+        '/api/note/',
         {
           withCredentials: true,
         }
@@ -43,7 +43,7 @@ export class NoteAPI {
   static async fetchById(id: string) {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_DOMAIN}/api/note/${id}`,
+        `/api/note/${id}`,
         {
           withCredentials: true,
         }
@@ -57,7 +57,7 @@ export class NoteAPI {
   static async update(note: NoteType) {
     try {
       const response = await axios.patch(
-        `${process.env.REACT_APP_BACKEND_DOMAIN}/api/note/${note.id}`,
+        `/api/note/${note.id}`,
         note,
         {
           withCredentials: true,
@@ -72,7 +72,7 @@ export class NoteAPI {
   static async deleteById(id: string) {
     try {
       const response = await axios.delete(
-        `${process.env.REACT_APP_BACKEND_DOMAIN}/api/note/${id}`,
+        `/api/note/${id}`,
         {
           withCredentials: true,
         }
@@ -87,7 +87,7 @@ export class NoteAPI {
     try {
       return (
         await axios.post(
-          `${process.env.BACKEND_DOMAIN}/api/auth/signup`,
+          '/api/auth/signup',
           user,
           {
             withCredentials: true,
@@ -101,7 +101,7 @@ export class NoteAPI {
 
   static async login(user: User) {
     try {
-      const res = await axios.post(`${process.env.REACT_APP_BACKEND_DOMAIN}/api/auth/login`, user, {
+      const res = await axios.post('/api/auth/login', user, {
         withCredentials: true,
       })
       console.log('LOGIN RESPONSE:', res.status, res.data);
@@ -113,7 +113,7 @@ export class NoteAPI {
 
   static async checkAuth() {
     const response = await axios.get(
-      `${process.env.REACT_APP_BACKEND_DOMAIN}/api/auth/check`,
+      '/api/auth/check',
       {
         withCredentials: true,
       }
@@ -123,7 +123,7 @@ export class NoteAPI {
 
   static async logout() {
     const response = await axios.post(
-      `${process.env.REACT_APP_BACKEND_DOMAIN}/api/auth/logout`,
+      '/api/auth/logout',
       {},
       {
         withCredentials: true,
@@ -136,7 +136,7 @@ export class NoteAPI {
     try {
       return (
         await axios.post(
-          `${process.env.REACT_APP_BACKEND_DOMAIN}/api/auth/request-password-reset`,
+          '/api/auth/request-password-reset',
           email,
           {
             withCredentials: true,
@@ -152,7 +152,7 @@ export class NoteAPI {
     try {
       return (
         await axios.post(
-          `${process.env.REACT_APP_BACKEND_DOMAIN}/api/auth/reset/${data.token}`,
+          `/api/auth/reset/${data.token}`,
           data,
           {
             withCredentials: true,
