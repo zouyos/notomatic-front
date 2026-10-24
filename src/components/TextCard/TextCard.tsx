@@ -54,9 +54,7 @@ export function TextCard({
           />
         </div>
         <Card.Subtitle className='mb-2 text-muted'>{subtitle}</Card.Subtitle>
-        <Card.Text>
-          <pre className={style.content}>{decodedContent}</pre>
-        </Card.Text>
+        <pre className={style.content}>{decodedContent}</pre>
       </Card.Body>
     </Card>
   );
