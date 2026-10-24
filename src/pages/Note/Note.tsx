@@ -25,9 +25,6 @@ export function Note() {
       const updatedNote = await NoteAPI.update({
         ...formValues,
         id: note.id,
-        userId: note.userId,
-        created_at: note.created_at,
-        modified_at: new Date().toLocaleDateString(),
       });
       dispatch(updateNote(updatedNote));
       setIsEditable(false);

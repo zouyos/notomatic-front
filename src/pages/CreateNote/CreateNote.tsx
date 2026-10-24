@@ -13,11 +13,7 @@ export function CreateNote() {
 
   async function createNote(formValues: NoteType) {
     try {
-      const createdNote = await NoteAPI.create({
-        ...formValues,
-        created_at: new Date().toLocaleDateString(),
-      });
-
+      const createdNote = await NoteAPI.create(formValues);
       dispatch(addNote(createdNote));
       navigate('/');
       setErrors([]);

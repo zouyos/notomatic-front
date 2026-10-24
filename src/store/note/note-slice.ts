@@ -17,7 +17,10 @@ export const noteSlice = createSlice({
       const indexToUpdate = currentSlice.noteList.findIndex(
         (note: NoteType) => note.id === action.payload.id
       );
-      currentSlice.noteList[indexToUpdate] = action.payload;
+
+      if (indexToUpdate !== -1) {
+        currentSlice.noteList[indexToUpdate] = action.payload;
+      }
     },
     deleteNote: (currentSlice, action) => {
       const filteredNoteList = currentSlice.noteList.filter(

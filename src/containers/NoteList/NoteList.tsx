@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { NoteAPI } from '../../api/note-api';
 import { deleteNote } from '../../store/note/note-slice';
 import { NoteType } from '../../types/types';
+import { formatDate } from '../../utils/formatDate';
 
 type NoteListProps = {
   noteList: NoteType[];
@@ -27,7 +28,11 @@ export function NoteList({ noteList }: NoteListProps) {
           <TextCard
             key={note.id}
             title={note.title}
-            subtitle={note.modified_at ? note.modified_at : note.created_at}
+            subtitle={
+              note.modified_at
+                ? formatDate(note.modified_at, true)
+                : formatDate(note.created_at)
+            }
             content={note.content}
             onCardClick={() => navigate(`/note/${note.id}`)}
             onTrashClick={() => removeNote(note.id as string)}

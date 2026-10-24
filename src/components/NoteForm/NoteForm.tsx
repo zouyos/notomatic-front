@@ -10,6 +10,7 @@ import { ValidatorService } from '../../services/form-validators';
 import { FieldError } from '../../components/FieldError/FieldError';
 import he from 'he';
 import { NoteType } from '../../types/types';
+import { formatDate } from '../../utils/formatDate';
 
 const VALIDATORS: any = {
   title: (value: string) => {
@@ -157,8 +158,10 @@ export function NoteForm({
         <div>
           <hr />
           <div className={style.note_footer}>
-            Created at {note.created_at}
-            {note.modified_at && <span> | Modified at {note.modified_at}</span>}
+            Created at {formatDate(note.created_at)}
+            {note.modified_at && (
+              <span> | Modified at {formatDate(note.modified_at, true)}</span>
+            )}
           </div>
         </div>
       )}
