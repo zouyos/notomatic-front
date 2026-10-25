@@ -32,7 +32,7 @@ export function NoteList({ noteList }: NoteListProps) {
               note.modified_at &&
               new Date(note.modified_at).getTime() >
                 new Date(note.created_at).getTime()
-                ? formatDate(note.modified_at, true)
+                ? formatDate(note.modified_at)
                 : formatDate(note.created_at)
             }
             content={note.content}

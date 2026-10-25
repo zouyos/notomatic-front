@@ -158,7 +158,7 @@ export function NoteForm({
         <div>
           <hr />
           <div className={style.note_footer}>
-            Created at {formatDate(note.created_at)}
+            Created at {formatDate(note.created_at, true)}
             {note.modified_at &&
               new Date(note.modified_at).getTime() >
                 new Date(note.created_at).getTime() && (
