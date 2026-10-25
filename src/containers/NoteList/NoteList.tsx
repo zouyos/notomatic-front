@@ -28,13 +28,7 @@ export function NoteList({ noteList }: NoteListProps) {
           <TextCard
             key={note.id}
             title={note.title}
-            subtitle={
-              note.modified_at &&
-              new Date(note.modified_at).getTime() >
-                new Date(note.created_at).getTime()
-                ? formatDate(note.modified_at)
-                : formatDate(note.created_at)
-            }
+            subtitle={formatDate(note.created_at)}
             content={note.content}
             onCardClick={() => navigate(`/note/${note.id}`)}
             onTrashClick={() => removeNote(note.id as string)}
